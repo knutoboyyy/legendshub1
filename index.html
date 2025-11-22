@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>SLAY AWARDS · Discord сервер</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050307;
+      --bg-alt: #0b0509;
+      --accent: #ff2746;
+      --accent-soft: rgba(255, 39, 70, 0.18);
+      --accent-2: #ff7a5c;
+      --text: #f5f5f5;
+      --muted: #9a96a5;
+      --border: #2a151d;
+      --card: #14070f;
+      --radius-lg: 18px;
+      --radius-xl: 32px;
+      --shadow-soft: 0 18px 60px rgba(0, 0, 0, 0.85);
+      --shadow-glow: 0 0 60px rgba(255, 39, 70, 0.55);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Inter", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background:
+        radial-gradient(circle at top, #26050c 0, #050307 40%),
+        radial-gradient(circle at bottom, #150310 0, #050307 45%);
+      color: var(--text);
+      font-family: var(--font-main);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px 80px;
+    }
+
+    /* HEADER */
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: rgba(9, 3, 7, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 16px 46px rgba(0, 0, 0, 0.85);
+      position: sticky;
+      top: 16px;
+      z-index: 50;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 30% 0, #ffe2e2, #ff2746);
+      box-shadow: var(--shadow-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.16em;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 13px;
+    }
+
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-weight: 500;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .nav a:hover {
+      color: var(--text);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(135deg, #ff2746, #ff7a5c);
+      color: #050307;
+      text-decoration: none;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-weight: 700;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .nav-cta span {
+      font-size: 11px;
+    }
+
+    .nav-cta svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .nav-mobile-toggle {
+      display: none;
+    }
+
+    /* HERO */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 36px;
+      margin-top: 40px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 39, 70, 0.08);
+      border: 1px solid rgba(255, 39, 70, 0.45);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(255, 39, 70, 0.9);
+    }
+
+    .badge-strong {
+      color: #fff;
+    }
+
+    .hero-title {
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.05;
+      margin: 0 0 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #ff2746, #ff7a5c);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 470px;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease,
+        background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      background: none;
+      color: inherit;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff2746, #ff7a5c);
+      color: #050307;
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .btn-secondary {
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(15, 4, 9, 0.9);
+      color: var(--muted);
+    }
+
+    .btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .meta-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(12, 3, 7, 0.9);
+    }
+
+    .hero-partners {
+      margin-top: 18px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .partner-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .partner-tag {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+
+    .hero-card {
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at top, #2b080f, #080307);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: var(--shadow-soft);
+      padding: 20px 20px 18px;
+      position: relative;
+      overflow: hidden;
+      min-height: 260px;
+    }
+
+    .hero-orbit {
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0 0, rgba(255, 39, 70, 0.13) 0, transparent 60%),
+        radial-gradient(circle at 100% 0, rgba(255, 122, 92, 0.18) 0, transparent 60%);
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    .hero-card-inner {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-stat-tag {
+      display: inline-flex;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(8, 2, 5, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .hero-countdown {
+      margin-top: 14px;
+    }
+
+    .hero-count-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .hero-count-grid {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pill-counter {
+      flex: 1;
+      min-width: 70px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(7, 2, 5, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .pill-counter strong {
+      display: block;
+      font-size: 18px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .pill-counter span {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .hero-card-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 18px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .stream-link-main {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .hero-calendar-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      text-decoration: none;
+      color: var(--text);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .hero-calendar-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .hero-twitch-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--accent-2);
+      text-decoration: none;
+      margin-top: 4px;
+    }
+
+    .hero-twitch-link svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* SECTIONS */
+
+    .section {
+      margin-top: 64px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .section-sub {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 420px;
+    }
+
+    /* ABOUT / STORY */
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .story-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .story-card {
+      border-radius: var(--radius-lg);
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      padding: 16px 16px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .story-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .story-text {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .story-badge {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(255, 39, 70, 0.65);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    /* NOMINATIONS */
+
+    .nominations-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    @media (max-width: 1000px) {
+      .nominations-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nominations-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .nom-card {
+      border-radius: var(--radius-lg);
+      background: linear-gradient(145deg, #19060d, #080307);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 14px 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nom-tag {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .nom-title {
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .nom-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .nom-overlay-glow {
+      position: absolute;
+      inset: 0;
+      opacity: 0.35;
+      background: radial-gradient(circle at 0 0, rgba(255, 39, 70, 0.5), transparent 55%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .nom-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .nom-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .nom-actions button {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(6, 2, 4, 0.95);
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      cursor: pointer;
+    }
+
+    .nom-actions button.primary {
+      background: rgba(255, 39, 70, 0.15);
+      border-color: rgba(255, 39, 70, 0.9);
+      color: #fff;
+    }
+
+    /* FAQ */
+
+    .faq-list {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--bg-alt);
+      overflow: hidden;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-header {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .faq-question {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .faq-toggle-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .faq-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease;
+      padding: 0 16px;
+    }
+
+    .faq-body-inner {
+      padding-bottom: 12px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .faq-item.open .faq-body {
+      max-height: 220px;
+    }
+
+    .faq-item.open .faq-toggle-icon {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+
+    /* FOOTER */
+
+    .footer {
+      margin-top: 56px;
+      border-radius: var(--radius-xl);
+      padding: 16px 16px 18px;
+      background: radial-gradient(circle at top, #2a050d, #050307);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      gap: 18px;
+      align-items: end;
+      font-size: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .footer {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .footer-title {
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 6px;
+    }
+
+    .footer-text {
+      color: var(--muted);
+      max-width: 380px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 11px;
+      justify-content: flex-end;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
+    }
+
+    .footer-bottom {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 700px) {
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+
+    /* MODALS */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 0, 2, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 24px;
+      background: rgba(8, 2, 7, 0.98);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 16px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .modal-title {
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .modal-close {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: transparent;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .modal-body {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .modal-body strong {
+      color: #fff;
+    }
+
+    .modal-actions {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .auth-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .auth-btn {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(10, 3, 7, 0.95);
+      color: var(--text);
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .auth-btn span {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    @media (max-width: 720px) {
+      .header {
+        border-radius: 18px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .nav-mobile-toggle {
+        display: inline-flex;
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .nav-mobile-open .nav {
+        display: flex;
+        position: absolute;
+        inset: calc(100% + 10px) 0 auto;
+        padding: 10px 16px;
+        border-radius: 14px;
+        background: rgba(9, 3, 7, 0.98);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- HEADER -->
+    <header class="header" id="top">
+      <div class="logo">
+        <div class="logo-mark">S</div>
+        <div class="logo-text">
+          <div class="logo-title">SLAY AWARDS</div>
+          <div class="logo-sub">DISCORD EDITION</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#about">О премии</a>
+        <a href="#noms">Номинации</a>
+        <a href="#faq">FAQ</a>
+        <a href="#stream">Трансляция</a>
+        <a class="nav-cta" href="#vote" onclick="openModal('auth-modal'); return false;">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3l4 4-4 4M16 7H4m8 10v-2m0 6a9 9 0 100-18 9 9 0 000 18z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Войти Discord</span>
+        </a>
+      </nav>
+
+      <button class="nav-mobile-toggle" onclick="toggleMobileNav()">☰</button>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="badge">
+          <div class="badge-dot"></div>
+          <span class="badge-strong">Ты — участник сервера</span> · ты же и решаешь
+        </div>
+
+        <h1 class="hero-title">
+          НОМИНАЦИИ ДЛЯ<br />
+          <span>ЛЮДЕЙ СЕРВЕРА</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Авторизация через Discord, голос за каждого участника — и в финале
+          на стриме видно, кого сервер реально считает SLAY KING, SLAY QUEEN,
+          мемом года и не только.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="openModal('auth-modal')">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3l4 4-4 4M16 7H4m8 10v-2m0 6a9 9 0 100-18 9 9 0 000 18z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Войти через Discord</span>
+          </button>
+
+          <a href="https://twitch.tv/knutoboyyy" target="_blank" rel="noreferrer" class="btn btn-secondary">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 4h14v10l-4 4h-4l-2 2v-2H5zM10 8v4M14 8v4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Смотреть стрим</span>
+          </a>
+        </div>
+
+        <div class="hero-meta">
+          <div class="meta-pill">Для людей с Discord сервера</div>
+          <div class="meta-pill">Чат и голоса решают исход</div>
+        </div>
+
+        <div class="hero-partners">
+          ФОРМАТ
+          <div class="partner-row">
+            <div class="partner-tag">Онлайн</div>
+            <div class="partner-tag">Discord + Twitch</div>
+            <div class="partner-tag">twitch.tv/knutoboyyy</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-card" id="stream">
+        <div class="hero-orbit"></div>
+        <div class="hero-card-inner">
+          <div>
+            <div class="hero-stat-tag">Онлайн-церемония</div>
+            <div class="hero-countdown">
+              <div class="hero-count-label">До старта стрима</div>
+              <div class="hero-count-grid">
+                <div class="pill-counter">
+                  <strong id="cd-days">12</strong>
+                  <span>дней</span>
+                </div>
+                <div class="pill-counter">
+                  <strong id="cd-hours">15</strong>
+                  <span>часов</span>
+                </div>
+                <div class="pill-counter">
+                  <strong id="cd-mins">25</strong>
+                  <span>минут</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-card-footer">
+            <div>
+              <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.16em; color:var(--muted);">
+                ПЛОЩАДКА
+              </div>
+              <div class="stream-link-main">
+                Прямой эфир на
+                <a href="https://twitch.tv/knutoboyyy" target="_blank" rel="noreferrer" class="hero-twitch-link">
+                  twitch.tv/knutoboyyy
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M14 5h5v5M10 14L19 5M5 10v9h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <a href="#" class="hero-calendar-link" onclick="openModal('remind-modal'); return false;">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 4v3M17 4v3M5 9h14M6 5h12a2 2 0 012 2v11H4V7a2 2 0 012-2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              Напомнить о стриме
+            </a>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Discord server awards</h2>
+          <p class="section-sub">
+            Премия не про стримеров, а про людей с сервера. Твои друзья из войса,
+            мемные никнеймы, вечные спорщики, лучший игрок и создатель треков — всё
+            это фиксируется в номинациях.
+          </p>
+        </div>
+      </div>
+
+      <div class="story-grid">
+        <article class="story-card">
+          <div class="story-badge">Discord</div>
+          <div class="story-tag">КТО УЧАСТВУЕТ</div>
+          <div class="story-title">Люди сервера</div>
+          <div class="story-text">
+            В списках только участники Discord сервера: те, кто сидит в войсах,
+            пишет в чаты, делает движ и мемы. Никаких рандомных звёзд — всё своё.
+          </div>
+        </article>
+
+        <article class="story-card">
+          <div class="story-tag">ГОЛОСОВАНИЕ</div>
+          <div class="story-title">Авторизация через Discord</div>
+          <div class="story-text">
+            Каждый голос привязан к Discord аккаунту. Один участник — один набор голосов
+            по номинациям. Можно голосовать за разных людей в разных категориях.
+          </div>
+        </article>
+
+        <article class="story-card">
+          <div class="story-tag">ФИНАЛ</div>
+          <div class="story-title">Итоги на стриме</div>
+          <div class="story-text">
+            В день премии включаешь <strong>twitch.tv/knutoboyyy</strong> и смотришь,
+            кто стал SLAY KING, кто устроил конфликт года, а кто залетел как прорыв.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- NOMINATIONS -->
+    <section class="section" id="noms">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Номинации</h2>
+          <p class="section-sub">
+            После входа через Discord ты сможешь голосовать за людей с сервера
+            в каждой из этих категорий.
+          </p>
+        </div>
+      </div>
+
+      <div class="nominations-grid">
+        <article class="nom-card">
+          <div class="nom-overlay-glow"></div>
+          <div class="nom-tag">Персона</div>
+          <div class="nom-title">SLAY KING</div>
+          <div class="nom-desc">
+            Самый яркий участник сервера: харизма, актив, движ, мемы, поддержка — всё в одном.
+          </div>
+          <div class="nom-foot">
+            <div>Выбери одного SLAY KING</div>
+            <div class="nom-actions">
+              <button class="primary" onclick="openModal('auth-modal')">Голосовать</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="nom-card">
+          <div class="nom-overlay-glow"></div>
+          <div class="nom-tag">Персона</div>
+          <div class="nom-title">SLAY QUEEN</div>
+          <div class="nom-desc">
+            Девушка сервера, которая тащит атмосферу, чат и настроения всех вокруг.
+          </div>
+          <div class="nom-foot">
+            <div>Один голос в сутки</div>
+            <div class="nom-actions">
+              <button class="primary" onclick="openModal('auth-modal')">Голосовать</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="nom-card">
+          <div class="nom-overlay-glow"></div>
+          <div class="nom-tag">Персона</div>
+          <div class="nom-title">Прорыв года</div>
+          <div class="nom-desc">
+            Тот, кто недавно появился на сервере и уже везде: в чатах, конфах и мемах.
+          </div>
+          <div class="nom-foot">
+            <div>Только новые лица</div>
+            <div class="nom-actions">
+              <button class="primary" onclick="openModal('auth-modal')">Голосовать</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="nom-card">
+          <div class="nom-overlay-glow"></div>
+          <div class="nom-tag">Движ</div>
+          <div class="nom-title">Конфликт года</div>
+          <div class="nom-desc">
+            Самый громкий спор/драма сервера, про который ещё долго шутили в войсах.
+          </div>
+          <div class="nom-foot">
+            <div>Главный холивар года</div>
+            <div class="nom-actions">
+              <button class="primary" onclick="openModal('auth-modal')">Голосовать</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="nom-card">
+          <div class="nom-overlay-glow"></div>
+          <div class="nom-tag">Игры</div>
+          <div class="nom-title">CS2 игрок года</div>
+          <div class="nom-desc">
+            Тот, кто разваливает лобби, тащит катки и собирает клипы с сервера.
+          </div>
+          <div class="nom-foot">
+            <div>Только участники сервера</div>
+            <div class="nom-actions">
+              <button class="primary" onclick="openModal('auth-modal')">Голосовать</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="nom-card">
+          <div class="nom-overlay-glow"></div>
+          <div class="nom-tag">Игры</div>
+          <div class="nom-title">Dota2 игрок года</div>
+          <div class="nom-desc">
+            Любимый керри, саппорт или тот самый мидер, который всегда «знает как надо».
+          </div>
+          <div class="nom-foot">
+            <div>Выбери одного игрока</div>
+            <div class="nom-actions">
+              <button class="primary" onclick="openModal('auth-modal')">Голосовать</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="nom-card">
+          <div class="nom-overlay-glow"></div>
+          <div class="nom-tag">Мем</div>
+          <div class="nom-title">Мем года</div>
+          <div class="nom-desc">
+            Фраза, картинка или момент, который остался внутри сервера навсегда.
+          </div>
+          <div class="nom-foot">
+            <div>Прикрепляй скрины/клипы (позже)</div>
+            <div class="nom-actions">
+              <button class="primary" onclick="openModal('auth-modal')">Голосовать</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="nom-card">
+          <div class="nom-overlay-glow"></div>
+          <div class="nom-tag">Музыка</div>
+          <div class="nom-title">Трек года</div>
+          <div class="nom-desc">
+            Песня, под которую жили войсы, мемили и делали хайлайты.
+          </div>
+          <div class="nom-foot">
+            <div>Нужна ссылка на трек</div>
+            <div class="nom-actions">
+              <button class="primary" onclick="openModal('auth-modal')">Голосовать</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="nom-card">
+          <div class="nom-overlay-glow"></div>
+          <div class="nom-tag">Событие</div>
+          <div class="nom-title">Событие года</div>
+          <div class="nom-desc">
+            Турнир, совместный просмотр, рейд, марафон — любой момент, который
+            стал историей сервера.
+          </div>
+          <div class="nom-foot">
+            <div>Прикрепи инфу/клип</div>
+            <div class="nom-actions">
+              <button class="primary" onclick="openModal('auth-modal')">Голосовать</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">FAQ</h2>
+          <p class="section-sub">
+            Коротко про Discord-авторизацию, голоса и то, как будет проходить номинация.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-header" onclick="toggleFaq(this)">
+            <div class="faq-question">Зачем авторизация через Discord?</div>
+            <div class="faq-toggle-icon">+</div>
+          </div>
+          <div class="faq-body">
+            <div class="faq-body-inner">
+              Чтобы один человек не голосовал тысячу раз. Один Discord аккаунт =
+              один набор голосов по номинациям. Так голосование остаётся честным.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-header" onclick="toggleFaq(this)">
+            <div class="faq-question">Где смотреть саму номинацию?</div>
+            <div class="faq-toggle-icon">+</div>
+          </div>
+          <div class="faq-body">
+            <div class="faq-body-inner">
+              Весь движ и объявления победителей будут на канале
+              <strong><a href="https://twitch.tv/knutoboyyy" target="_blank" rel="noreferrer" style="color:var(--accent-2); text-decoration:none;">twitch.tv/knutoboyyy</a></strong>.
+              Просто заходи в день стрима.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-header" onclick="toggleFaq(this)">
+            <div class="faq-question">Могу ли я голосовать в нескольких номинациях?</div>
+            <div class="faq-toggle-icon">+</div>
+          </div>
+          <div class="faq-body">
+            <div class="faq-body-inner">
+              Да. В каждой номинации ты выбираешь одного фаворита, но сам список
+              номинаций проходишь полностью — SLAY KING, SLAY QUEEN, Мем года и т.д.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div>
+        <div class="footer-title">Премия для людей сервера</div>
+        <div class="footer-text">
+          Никаких случайных номинантов — только свои. Голоса через Discord,
+          итоги на <strong>twitch.tv/knutoboyyy</strong>, и каждый видит, кто
+          стал легендой этого сезона.
+        </div>
+      </div>
+      <div>
+        <div class="footer-links">
+          <a href="#">Политика конфиденциальности</a>
+          <a href="#">Правила премии</a>
+          <a href="#top">Наверх</a>
+        </div>
+        <div class="footer-bottom">
+          <div>2025 © SLAY AWARDS · Discord edition</div>
+          <div>Используя сайт, вы соглашаетесь на использование cookie.</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- MODALS -->
+  <div class="modal-backdrop" id="auth-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Вход через Discord</div>
+        <button class="modal-close" onclick="closeModal('auth-modal')">×</button>
+      </div>
+      <div class="modal-body">
+        Чтобы голосовать за участников, нужно подключить свой Discord аккаунт.
+        <div class="auth-options">
+          <button class="auth-btn" onclick="loginDiscord()">
+            <span>Продолжить через Discord</span>
+            <span>→</span>
+          </button>
+        </div>
+        <div style="margin-top:8px; font-size:11px; color:var(--muted);">
+          Продолжая, ты подтверждаешь согласие на обработку данных и принимаешь
+          правила премии.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="remind-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Напомнить о стриме</div>
+        <button class="modal-close" onclick="closeModal('remind-modal')">×</button>
+      </div>
+      <div class="modal-body">
+        Добавь стрим в календарь, чтобы не пропустить церемонию.
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="alert('Сюда можно поставить ссылку на календарь с датой стрима')">
+            Добавить в календарь
+          </button>
+          <button class="btn btn-secondary" onclick="closeModal('remind-modal')">Потом</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMobileNav() {
+      const header = document.querySelector(".header");
+      header.classList.toggle("nav-mobile-open");
+    }
+
+    function openModal(id) {
+      document.getElementById(id)?.classList.add("open");
+    }
+
+    function closeModal(id) {
+      document.getElementById(id)?.classList.remove("open");
+    }
+
+    function toggleFaq(headerEl) {
+      const item = headerEl.closest(".faq-item");
+      const open = item.classList.contains("open");
+      document
+        .querySelectorAll(".faq-item")
+        .forEach((el) => el.classList.remove("open"));
+      if (!open) item.classList.add("open");
+    }
+
+    // ВХОД ЧЕРЕЗ DISCORD (фронт-часть)
+    function loginDiscord() {
+      const clientId = "1441771387236032154";
+      const redirectUri = encodeURIComponent("https://knutoboyyy.github.io/knutoboyyy/callback.html");
+      const scope = "identify";
+      const responseType = "code";
+
+      const url = 
+        `https://discord.com/oauth2/authorize` +
+        `?client_id=${clientId}` +
+        `&redirect_uri=${redirectUri}` +
+        `&response_type=${responseType}` +
+        `&scope=${scope}`;
+
+      window.location.href = url;
+    }
+
+    // Обратный отсчёт до даты номинации (можешь поменять дату)
+    const targetDate = new Date("2025-12-21T18:00:00+03:00").getTime();
+
+    function updateCountdown() {
+      const now = Date.now();
+      const diff = targetDate - now;
+      if (diff <= 0) return;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+
+      document.getElementById("cd-days").textContent = String(days).padStart(2, "0");
+      document.getElementById("cd-hours").textContent = String(hours).padStart(2, "0");
+      document.getElementById("cd-mins").textContent = String(mins).padStart(2, "0");
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 30000);
+  </script>
+</body>
+</html>

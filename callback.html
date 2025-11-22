@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Discord авторизация</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050307;
+      --accent: #ff2746;
+      --accent2: #ff7a5c;
+      --text: #ffffff;
+      --muted: #9a96a5;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Inter", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background:
+        radial-gradient(circle at top, #26050c 0, #050307 40%),
+        radial-gradient(circle at bottom, #150310 0, #050307 45%);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .card {
+      max-width: 520px;
+      width: 100%;
+      margin: 16px;
+      padding: 20px 20px 18px;
+      border-radius: 24px;
+      background: radial-gradient(circle at top, #2b080f, #080307);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    h1 {
+      font-size: 22px;
+      margin: 0 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    #status {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    code {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 8px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.65);
+      font-size: 11px;
+      word-break: break-all;
+    }
+
+    a {
+      color: var(--accent2);
+      text-decoration: none;
+    }
+
+    .back {
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .back a {
+      border-bottom: 1px dashed rgba(255,255,255,0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Discord авторизация</h1>
+    <div class="subtitle">
+      Проверяем, успешно ли Discord вернул код для входа на SLAY AWARDS.
+    </div>
+    <div id="status">Загрузка...</div>
+    <div class="back">
+      Если что-то пошло не так — вернись на
+      <a href="https://knutoboyyy.github.io/knutoboyyy/">главную</a>
+      и попробуй ещё раз.
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    const statusEl = document.getElementById("status");
+
+    if (!code) {
+      statusEl.innerHTML =
+        "Не удалось получить код авторизации. <br>" +
+        "Возможно, ты отменил вход в Discord или ссылка настроена неверно.";
+    } else {
+      statusEl.innerHTML =
+        "Discord вернул код авторизации. OAuth настроен правильно. <br><br>" +
+        "Дальше этот код нужно отправлять на сервер, чтобы обменять его на токен " +
+        "и получить твой профиль Discord (ник, аватар, id). <br>" +
+        "<code>" + code + "</code>";
+      console.log("CODE FROM DISCORD:", code);
+    }
+  </script>
+</body>
+</html>
